@@ -1,0 +1,227 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13, 8, 22, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(107, 47, 160, 0.3);
+  padding: 12px 24px;
+}
+
+.headerInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoStar {
+  font-size: 40px;
+  color: #FFD700;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+  line-height: 1;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #fff 0%, #00D4FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.resultsBtn {
+  background: linear-gradient(135deg, #6B2FA0, #00D4FF);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(107, 47, 160, 0.4);
+}
+
+.resultsBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(107, 47, 160, 0.6);
+}
+
+.resultsBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Main grid */
+.main {
+  flex: 1;
+  padding: 32px 24px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* Country card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card:hover {
+  background: var(--card-hover);
+  border-color: rgba(107, 47, 160, 0.7);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(107, 47, 160, 0.3);
+}
+
+.rated {
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+.rated:hover {
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+}
+
+.unrated {
+  opacity: 0.75;
+}
+
+.unrated:hover {
+  opacity: 1;
+}
+
+.flagWrap {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.checkmark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #00D4FF;
+  color: #000;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.5);
+}
+
+.cardBody {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.countryName {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.avgScore {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFD700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.avgStar {
+  font-size: 14px;
+}
+
+.notRated {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header { padding: 10px 16px; }
+  .main { padding: 20px 16px 40px; }
+  .title { font-size: 18px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+  .resultsBtn { font-size: 12px; padding: 8px 14px; }
+  .progress { display: none; }
+}
