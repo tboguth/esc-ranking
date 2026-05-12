@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { COUNTRIES, CATEGORIES } from "../types";
+import { CONTESTANTS } from "../data/contestants";
+import { CATEGORIES } from "../types";
 import type { CategoryRatings } from "../types";
 import { getRating, saveRating, deleteRating } from "../storage";
 import StarRating from "../components/StarRating";
@@ -15,10 +16,57 @@ const EMPTY: CategoryRatings = {
   escFeeling: 0,
 };
 
+function useWikipediaImage(slug: string, countryCode: string, pressImageUrl?: string) {
+  const cacheKey = `wiki_img_${countryCode}`;
+
+  const [imageUrl, setImageUrl] = useState<string | null>(() => {
+    if (pressImageUrl) return pressImageUrl;
+    if (!countryCode) return null;
+    const cached = localStorage.getItem(cacheKey);
+    return cached && cached !== "NONE" ? cached : null;
+  });
+  const [loading, setLoading] = useState(() => {
+    if (pressImageUrl || !countryCode) return false;
+    return localStorage.getItem(cacheKey) === null;
+  });
+
+  useEffect(() => {
+    if (pressImageUrl) { setImageUrl(pressImageUrl); setLoading(false); return; }
+    if (!slug || !countryCode) { setLoading(false); return; }
+
+    const cached = localStorage.getItem(cacheKey);
+    if (cached !== null) {
+      setImageUrl(cached !== "NONE" ? cached : null);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(slug)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const url: string | null = data?.thumbnail?.source ?? null;
+        localStorage.setItem(cacheKey, url ?? "NONE");
+        setImageUrl(url);
+      })
+      .catch(() => { localStorage.setItem(cacheKey, "NONE"); setImageUrl(null); })
+      .finally(() => setLoading(false));
+  }, [slug, cacheKey, pressImageUrl, countryCode]);
+
+  return { imageUrl, loading };
+}
+
 export default function RatingPage() {
   const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
-  const country = COUNTRIES.find((c) => c.code === code);
+  const contestant = CONTESTANTS.find((c) => c.countryCode === code);
+
+  // Hook must run unconditionally (before any early return)
+  const { imageUrl: heroImageUrl, loading: heroLoading } = useWikipediaImage(
+    contestant?.wikipediaSlug ?? "",
+    contestant?.countryCode ?? "",
+    contestant?.pressImageUrl,
+  );
 
   const [ratings, setRatings] = useState<CategoryRatings>(EMPTY);
 
@@ -28,7 +76,7 @@ export default function RatingPage() {
     if (saved) setRatings(saved);
   }, [code]);
 
-  if (!country) {
+  if (!contestant) {
     return (
       <div className={styles.error}>
         <p>Land nicht gefunden.</p>
@@ -41,6 +89,66 @@ export default function RatingPage() {
   const avg = allRated
     ? Object.values(ratings).reduce((a, b) => a + b, 0) / Object.values(ratings).length
     : null;
+
+  // Shared hero: full-width image banner + info bar
+  const hero = (
+    <>
+      <div className={styles.heroBanner}>
+        {heroLoading ? (
+          <div className={styles.heroSpinner} />
+        ) : heroImageUrl ? (
+          <img src={heroImageUrl} alt={contestant.artist} className={styles.heroImg} />
+        ) : (
+          <div className={styles.heroPlaceholder}>
+            <span className={styles.heroPlaceholderMic}>🎤</span>
+          </div>
+        )}
+        <div className={styles.heroOverlay}>
+          <h1 className={styles.heroArtistName}>{contestant.artist}</h1>
+          <p className={styles.heroSongTitle}>„{contestant.song}"</p>
+        </div>
+      </div>
+
+      <div className={styles.heroInfoBar}>
+        <div className={styles.flagWrap}>
+          <img
+            src={`https://flagcdn.com/w320/${contestant.countryCode.toLowerCase()}.png`}
+            alt={`Flagge ${contestant.country}`}
+            className={styles.flag}
+          />
+        </div>
+        <div className={styles.heroInfoText}>
+          <span className={styles.countryName}>{contestant.country}</span>
+          <span className={styles.escLabel}>ESC 2026 · Halbfinale {contestant.semiFinal}</span>
+        </div>
+        {avg !== null && (
+          <div className={styles.avgBadge}>
+            <span className={styles.avgStar}>★</span>
+            <span>{avg.toFixed(2)}</span>
+            <span className={styles.avgMax}>/ 5.00</span>
+          </div>
+        )}
+      </div>
+    </>
+  );
+
+  if (contestant.isGuest) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.container}>
+          <button className={styles.backBtn} onClick={() => navigate("/")}>← Zurück</button>
+          {hero}
+          <div className={styles.guestNotice}>
+            <span className={styles.guestNoticeIcon}>🎤</span>
+            <div>
+              <strong>Gastauftritt – nicht bewertbar</strong>
+              <p>Dieses Land tritt auf, nimmt aber nicht am Wettbewerb teil.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   function handleSave() {
     if (!code) return;
@@ -61,30 +169,9 @@ export default function RatingPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <button className={styles.backBtn} onClick={() => navigate("/")}>
-          ← Zurück
-        </button>
+        <button className={styles.backBtn} onClick={() => navigate("/")}>← Zurück</button>
 
-        <div className={styles.hero}>
-          <div className={styles.flagWrap}>
-            <img
-              src={`https://flagcdn.com/w160/${country.code.toLowerCase()}.png`}
-              alt={`Flagge ${country.name}`}
-              className={styles.flag}
-            />
-          </div>
-          <div className={styles.heroText}>
-            <h1 className={styles.countryName}>{country.name}</h1>
-            <p className={styles.escLabel}>Eurovision Song Contest 2025</p>
-            {avg !== null && (
-              <div className={styles.avgBadge}>
-                <span className={styles.avgStar}>★</span>
-                <span>{avg.toFixed(2)}</span>
-                <span className={styles.avgMax}>/ 5.00</span>
-              </div>
-            )}
-          </div>
-        </div>
+        {hero}
 
         <div className={styles.categories}>
           {CATEGORIES.map((cat) => (
@@ -113,17 +200,15 @@ export default function RatingPage() {
         </div>
 
         <div className={styles.actions}>
-          {getRating(country.code) && (
+          {getRating(contestant.countryCode) && (
             <button className={styles.deleteBtn} onClick={handleDelete}>
               Bewertung löschen
             </button>
           )}
-          <button
-            className={styles.saveBtn}
-            onClick={handleSave}
-            disabled={!allRated}
-          >
-            {allRated ? "💾 Bewertung speichern" : `Noch ${Object.values(ratings).filter((v) => v === 0).length} Kategorien ausstehend`}
+          <button className={styles.saveBtn} onClick={handleSave} disabled={!allRated}>
+            {allRated
+              ? "💾 Bewertung speichern"
+              : `Noch ${Object.values(ratings).filter((v) => v === 0).length} Kategorien ausstehend`}
           </button>
         </div>
       </div>

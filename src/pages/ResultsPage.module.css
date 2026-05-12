@@ -133,6 +133,8 @@
   object-fit: cover;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .podiumName {
@@ -208,6 +210,8 @@
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .rankName {
@@ -292,6 +296,8 @@
   object-fit: cover;
   border-radius: 3px;
   flex-shrink: 0;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .catName {

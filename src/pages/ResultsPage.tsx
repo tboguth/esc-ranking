@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { COUNTRIES, CATEGORIES } from "../types";
+import { CONTESTANTS } from "../data/contestants";
+import { CATEGORIES } from "../types";
 import type { CategoryRatings } from "../types";
 import { getAllRatings, calcAverage } from "../storage";
 import styles from "./ResultsPage.module.css";
+
+const competitors = CONTESTANTS.filter((c) => !c.isGuest);
 
 interface RankedCountry {
   name: string;
@@ -15,13 +18,13 @@ export default function ResultsPage() {
   const navigate = useNavigate();
   const allRatings = getAllRatings();
 
-  const ranked: RankedCountry[] = COUNTRIES
-    .filter((c) => allRatings[c.code])
+  const ranked: RankedCountry[] = competitors
+    .filter((c) => allRatings[c.countryCode])
     .map((c) => ({
-      name: c.name,
-      code: c.code,
-      ratings: allRatings[c.code],
-      avg: calcAverage(allRatings[c.code]),
+      name: c.country,
+      code: c.countryCode,
+      ratings: allRatings[c.countryCode],
+      avg: calcAverage(allRatings[c.countryCode]),
     }))
     .sort((a, b) => b.avg - a.avg);
 
@@ -61,7 +64,7 @@ export default function ResultsPage() {
                 <div className={`${styles.podiumSlot} ${styles.silver}`}>
                   <span className={styles.podiumMedal}>🥈</span>
                   <img
-                    src={`https://flagcdn.com/w80/${silver.code.toLowerCase()}.png`}
+                    src={`https://flagcdn.com/w160/${silver.code.toLowerCase()}.png`}
                     alt={silver.name}
                     className={styles.podiumFlag}
                   />
@@ -74,7 +77,7 @@ export default function ResultsPage() {
                 <div className={`${styles.podiumSlot} ${styles.gold}`}>
                   <span className={styles.podiumMedal}>🥇</span>
                   <img
-                    src={`https://flagcdn.com/w80/${gold.code.toLowerCase()}.png`}
+                    src={`https://flagcdn.com/w160/${gold.code.toLowerCase()}.png`}
                     alt={gold.name}
                     className={styles.podiumFlag}
                   />
@@ -87,7 +90,7 @@ export default function ResultsPage() {
                 <div className={`${styles.podiumSlot} ${styles.bronze}`}>
                   <span className={styles.podiumMedal}>🥉</span>
                   <img
-                    src={`https://flagcdn.com/w80/${bronze.code.toLowerCase()}.png`}
+                    src={`https://flagcdn.com/w160/${bronze.code.toLowerCase()}.png`}
                     alt={bronze.name}
                     className={styles.podiumFlag}
                   />
@@ -113,7 +116,7 @@ export default function ResultsPage() {
                   {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `#${idx + 1}`}
                 </span>
                 <img
-                  src={`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`}
+                  src={`https://flagcdn.com/w160/${country.code.toLowerCase()}.png`}
                   alt={country.name}
                   className={styles.rankFlag}
                 />
@@ -153,7 +156,7 @@ export default function ResultsPage() {
                           {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}
                         </span>
                         <img
-                          src={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png`}
+                          src={`https://flagcdn.com/w80/${c.code.toLowerCase()}.png`}
                           alt={c.name}
                           className={styles.catFlag}
                         />

@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path C:\\\\dev\\\\esc -Recurse -Force)",
+      "Bash(Select-Object -Property FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(npm run *)",
+      "WebSearch",
+      "WebFetch(domain:www.eurovision.com)",
+      "WebFetch(domain:eurovisionworld.com)",
+      "WebFetch(domain:sharingsweden.se)",
+      "WebFetch(domain:thateurovisionsite.com)",
+      "WebFetch(domain:www.aussievision.net)",
+      "WebFetch(domain:eurovoix.com)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:eurovisionfun.com)",
+      "WebFetch(domain:www.esc-plus.com)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/felicia/\")",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/lelek/\")",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/akylas/\")",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/senhit/\")",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/lavina/\")"
+    ]
+  }
+}
