@@ -35,6 +35,47 @@
   font-size: 15px;
 }
 
+/* User bar */
+.userBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 10px 16px;
+  background: rgba(107, 47, 160, 0.12);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+}
+
+.userBarText {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.userBarText strong {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.logoutBtn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 14px;
+  transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.5);
+  background: rgba(255, 107, 107, 0.08);
+}
+
 /* Back link */
 .backLink {
   display: inline-flex;
@@ -319,6 +360,407 @@
 
 .catScoreEmpty {
   color: rgba(255,255,255,0.1);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 4px;
+  margin-bottom: 32px;
+  width: fit-content;
+}
+
+.tab,
+.tabActive {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 50px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab {
+  color: var(--text-muted);
+}
+
+.tab:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+}
+
+.tabActive {
+  background: linear-gradient(135deg, var(--purple), var(--cyan-dim));
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(107, 47, 160, 0.4);
+}
+
+/* Empty state within a tab */
+.emptyTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.emptyTab h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.emptyTab p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* Loading */
+.loadingBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 64px 24px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(107, 47, 160, 0.3);
+  border-top-color: var(--cyan);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Refresh row */
+.refreshRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.dataInfo {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.refreshBtn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  padding: 6px 16px;
+  transition: all 0.2s;
+}
+
+.refreshBtn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--cyan);
+}
+
+/* Global rank table */
+.tableWrap {
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.globalTable {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.globalTable thead tr {
+  background: rgba(107, 47, 160, 0.2);
+}
+
+.globalTable th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.globalTable td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(107, 47, 160, 0.12);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.globalTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.globalTable tbody tr:hover {
+  background: rgba(107, 47, 160, 0.08);
+}
+
+.thRank, .tdRank  { width: 44px; text-align: center; }
+.thAvg,  .tdAvg   { width: 64px; text-align: right; color: #FFD700; }
+.thCat,  .tdCat   { width: 52px; text-align: center; color: var(--text-muted); }
+.thCount,.tdCount  { width: 64px; text-align: center; }
+.thName, .tdName  { min-width: 120px; font-weight: 600; }
+
+.tdAvg strong { color: #FFD700; font-weight: 800; font-size: 14px; }
+
+.tableFlag {
+  width: 36px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 2px 8px;
+  min-width: 24px;
+}
+
+.dimmed {
+  opacity: 0.32;
+}
+
+.dimText {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* User selector */
+.userSelectorRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.userSelectorLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.userSelect {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: auto;
+}
+
+.userSelect:focus {
+  border-color: var(--cyan);
+}
+
+.noData {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 16px 0;
+}
+
+/* Rating matrix */
+.matrixWrap {
+  overflow: auto;
+  max-height: 68vh;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+.matrixTable {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+  width: max-content;
+  min-width: 100%;
+}
+
+/* Sticky header row */
+.matrixTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: #160d26;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--border);
+  letter-spacing: 0.3px;
+}
+
+/* Sticky top-left corner */
+.matrixCorner {
+  position: sticky !important;
+  left: 0;
+  z-index: 4 !important;
+  background: #160d26 !important;
+  text-align: left !important;
+  min-width: 140px;
+  border-right: 1px solid var(--border);
+}
+
+.matrixUserHead {
+  min-width: 72px;
+}
+
+.matrixTotalHead {
+  position: sticky;
+  right: 0;
+  z-index: 3;
+  background: #1a0f38;
+  min-width: 72px;
+  border-left: 2px solid rgba(255, 215, 0, 0.3);
+  color: #FFD700 !important;
+}
+
+/* Body rows */
+.matrixTable tbody tr:nth-child(even) .matrixCountryCell,
+.matrixTable tbody tr:nth-child(even) .matrixCell,
+.matrixTable tbody tr:nth-child(even) .matrixTotalCell {
+  background-color: rgba(255,255,255,0.015);
+}
+
+.matrixTable tbody tr:hover .matrixCountryCell {
+  background: rgba(107, 47, 160, 0.18);
+}
+
+/* Sticky first column (country) */
+.matrixCountryCell {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid rgba(107, 47, 160, 0.1);
+  border-right: 1px solid var(--border);
+  min-width: 140px;
+  white-space: nowrap;
+}
+
+.matrixFlag {
+  width: 28px;
+  height: 19px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.matrixCountryName {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.matrixRowDim .matrixCountryName {
+  opacity: 0.35;
+}
+
+/* Score cells */
+.matrixCell {
+  text-align: center;
+  padding: 0;
+  height: 40px;
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(107, 47, 160, 0.1);
+  border-right: 1px solid rgba(107, 47, 160, 0.08);
+  cursor: default;
+  transition: filter 0.1s;
+  min-width: 52px;
+}
+
+.matrixCell:hover {
+  filter: brightness(1.15);
+  z-index: 1;
+  position: relative;
+}
+
+.matrixEmpty {
+  color: rgba(255, 255, 255, 0.2);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+/* Total (last) column */
+.matrixTotalCell {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  text-align: center;
+  padding: 0;
+  height: 40px;
+  font-size: 13px;
+  font-weight: 800;
+  border-bottom: 1px solid rgba(107, 47, 160, 0.1);
+  border-left: 2px solid rgba(255, 215, 0, 0.2);
+  min-width: 72px;
+  cursor: default;
+}
+
+.matrixTotalCell strong {
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.matrixRowDim {
+  opacity: 0.3;
 }
 
 /* Responsive */

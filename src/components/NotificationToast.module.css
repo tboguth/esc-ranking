@@ -1,0 +1,137 @@
+/* Container: fixed bottom-right, stacks upward */
+.container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  pointer-events: none;
+  max-width: 340px;
+}
+
+/* Individual toast */
+.toast {
+  pointer-events: all;
+  width: 320px;
+  background: #1a1030;
+  border: 1px solid rgba(107, 47, 160, 0.6);
+  border-left: 3px solid #6B2FA0;
+  border-radius: 14px;
+  padding: 12px 14px 0;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(107, 47, 160, 0.25);
+  overflow: hidden;
+  position: relative;
+
+  /* Slide in from right */
+  transform: translateX(calc(100% + 40px));
+  opacity: 0;
+  transition:
+    transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.28s ease;
+}
+
+.toastVisible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Header row */
+.toastHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.toastCountryRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toastFlag {
+  width: 32px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.toastCountry {
+  font-size: 14px;
+  font-weight: 800;
+  color: #f0e8ff;
+}
+
+.toastClose {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  color: #9980bb;
+  padding: 3px 7px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.toastClose:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0e8ff;
+}
+
+/* Body text */
+.toastMsg {
+  font-size: 13px;
+  color: #f0e8ff;
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+
+.toastMsg strong {
+  color: #00D4FF;
+}
+
+.toastScore {
+  font-size: 12px;
+  color: #9980bb;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* Progress bar */
+.toastProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #6B2FA0, #00D4FF);
+  transform-origin: left center;
+  animation: progressShrink 5s linear forwards;
+}
+
+@keyframes progressShrink {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .container {
+    bottom: 12px;
+    right: 8px;
+    left: 8px;
+    max-width: 100%;
+  }
+
+  .toast {
+    width: 100%;
+  }
+}

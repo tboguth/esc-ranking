@@ -4,6 +4,7 @@ import { CONTESTANTS } from "../data/contestants";
 import { CATEGORIES } from "../types";
 import type { CategoryRatings } from "../types";
 import { getRating, saveRating, deleteRating } from "../storage";
+import { useUser } from "../context/UserContext";
 import StarRating from "../components/StarRating";
 import styles from "./RatingPage.module.css";
 
@@ -59,6 +60,7 @@ function useWikipediaImage(slug: string, countryCode: string, pressImageUrl?: st
 export default function RatingPage() {
   const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
+  const { userId } = useUser();
   const contestant = CONTESTANTS.find((c) => c.countryCode === code);
 
   // Hook must run unconditionally (before any early return)
@@ -152,13 +154,13 @@ export default function RatingPage() {
 
   function handleSave() {
     if (!code) return;
-    saveRating({ countryCode: code, ratings });
+    saveRating({ countryCode: code, ratings }, userId, contestant?.semiFinal);
     navigate("/");
   }
 
   function handleDelete() {
     if (!code) return;
-    deleteRating(code);
+    deleteRating(code, userId);
     navigate("/");
   }
 

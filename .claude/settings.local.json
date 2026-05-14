@@ -20,7 +20,13 @@
       "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/lelek/\")",
       "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/akylas/\")",
       "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/senhit/\")",
-      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/lavina/\")"
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36\" \"https://www.eurovision.com/eurovision-song-contest/vienna-2026/all-participants/lavina/\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\dev\\\\esc\" -Recurse -Force)",
+      "Bash(Select-Object -Property FullName)",
+      "Bash(Format-List)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npx vite *)"
     ]
   }
 }
